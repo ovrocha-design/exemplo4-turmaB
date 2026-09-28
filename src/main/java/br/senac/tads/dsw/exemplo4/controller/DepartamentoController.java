@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.senac.tads.dsw.exemplo4.model.Departamento;
 import br.senac.tads.dsw.exemplo4.repository.DepartamentoRepository;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -35,7 +36,7 @@ public class DepartamentoController {
 } 
 
     @PostMapping
-    public ResponseEntity<Departamento> criar(@RequestBody Departamento departamento) {
+    public ResponseEntity<Departamento> criar(@RequestBody @Valid Departamento departamento) {
     Departamento departamentoSalvo = repository.save(departamento);
 
             URI location = ServletUriComponentsBuilder
@@ -60,7 +61,7 @@ public class DepartamentoController {
     
     @PutMapping("/{id}")
     public ResponseEntity<Departamento> atualizar(@PathVariable Long id,
-                        @RequestBody Departamento departamentoAtualizado) {
+                        @RequestBody @Valid Departamento departamentoAtualizado) {
             Optional<Departamento> departamentoBuscado = repository.findById(id);
         if (departamentoBuscado.isPresent()) {
             Departamento departamentoExistente = departamentoBuscado.get();
